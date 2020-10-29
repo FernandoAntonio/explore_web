@@ -10,15 +10,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<bool> _hoverAppBarList = [false, false, false, false];
 
-  List<bool> _selectedPlacesList = [
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  List<bool> _selectedPlacesList = [true, false, false, false, false, false, false];
 
   List<String> _imagesList = [
     'images/asia.jpg',
@@ -160,8 +152,7 @@ class _HomeViewState extends State<HomeView> {
                   child: Text(
                     'Sign Up',
                     style: kAppBarButton.copyWith(
-                      color:
-                          _hoverAppBarList[2] ? Colors.white : Colors.grey[300],
+                      color: _hoverAppBarList[2] ? Colors.white : Colors.grey[300],
                     ),
                   ),
                   onTap: () {},
@@ -176,8 +167,7 @@ class _HomeViewState extends State<HomeView> {
                   child: Text(
                     'Login',
                     style: kAppBarButton.copyWith(
-                      color:
-                          _hoverAppBarList[3] ? Colors.white : Colors.grey[300],
+                      color: _hoverAppBarList[3] ? Colors.white : Colors.grey[300],
                     ),
                   ),
                   onTap: () {},
@@ -360,18 +350,14 @@ class _HomeViewState extends State<HomeView> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: screenSize.width * 0.03,
-                vertical: screenSize.width * 0.03),
+                horizontal: screenSize.width * 0.03, vertical: screenSize.width * 0.03),
             child: SizedBox(
               width: screenSize.width,
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 children: [
                   Text('Featured', style: kHeader1Bold),
-                  Expanded(
-                    child: Text('Unique wildlife tours and destinations',
-                        style: kHeader5),
-                  ),
+                  Text('Unique wildlife tours and destinations', style: kHeader5),
                 ],
               ),
             ),
@@ -424,8 +410,8 @@ class _HomeViewState extends State<HomeView> {
                             height: screenSize.width * 0.17,
                             width: screenSize.width * 0.3,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  screenSize.width * 0.01),
+                              borderRadius:
+                                  BorderRadius.circular(screenSize.width * 0.01),
                               child: Image.asset(
                                 'images/photography.jpeg',
                                 fit: BoxFit.cover,
@@ -492,8 +478,8 @@ class _HomeViewState extends State<HomeView> {
                               height: screenSize.width * 0.3,
                               width: screenSize.width * 0.55,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    screenSize.width * 0.01),
+                                borderRadius:
+                                BorderRadius.circular(screenSize.width * 0.01),
                                 child: Image.asset(
                                   'images/photography.jpeg',
                                   fit: BoxFit.cover,
@@ -533,8 +519,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Stack(
                       children: [
                         ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(screenSize.width * 0.01),
+                          borderRadius: BorderRadius.circular(screenSize.width * 0.01),
                           child: Image.asset(
                             _imagesList[index],
                             fit: BoxFit.cover,
@@ -542,8 +527,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom: screenSize.width * 0.07),
+                            padding: EdgeInsets.only(bottom: screenSize.width * 0.07),
                             child: Text(
                               _placesNameList[index],
                               style: kPlacesTitle.copyWith(

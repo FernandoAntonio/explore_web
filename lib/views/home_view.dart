@@ -479,7 +479,7 @@ class _HomeViewState extends State<HomeView> {
                               width: screenSize.width * 0.55,
                               child: ClipRRect(
                                 borderRadius:
-                                BorderRadius.circular(screenSize.width * 0.01),
+                                    BorderRadius.circular(screenSize.width * 0.01),
                                 child: Image.asset(
                                   'images/photography.jpeg',
                                   fit: BoxFit.cover,

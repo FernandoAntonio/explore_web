@@ -1,0 +1,47 @@
+{
+  "packages/cupertino_icons/assets/CupertinoIcons.ttf": [
+    "packages/cupertino_icons/assets/CupertinoIcons.ttf"
+  ],
+  "fonts/Electrolize-Regular.ttf": [
+    "fonts/Electrolize-Regular.ttf"
+  ],
+  "fonts/Montserrat-Regular.ttf": [
+    "fonts/Montserrat-Regular.ttf"
+  ],
+  "images/africa.jpg": [
+    "images/africa.jpg"
+  ],
+  "images/animals.jpg": [
+    "images/animals.jpg"
+  ],
+  "images/antarctica.jpg": [
+    "images/antarctica.jpg"
+  ],
+  "images/asia.jpg": [
+    "images/asia.jpg"
+  ],
+  "images/australia.jpg": [
+    "images/australia.jpg"
+  ],
+  "images/cover.jpg": [
+    "images/cover.jpg"
+  ],
+  "images/europe.jpg": [
+    "images/europe.jpg"
+  ],
+  "images/google_logo.png": [
+    "images/google_logo.png"
+  ],
+  "images/north_america.jpg": [
+    "images/north_america.jpg"
+  ],
+  "images/photography.jpeg": [
+    "images/photography.jpeg"
+  ],
+  "images/south_america.jpg": [
+    "images/south_america.jpg"
+  ],
+  "images/trekking.jpg": [
+    "images/trekking.jpg"
+  ]
+}

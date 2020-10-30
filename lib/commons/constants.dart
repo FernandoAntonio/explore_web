@@ -54,3 +54,8 @@ const TextStyle kHeader5 = TextStyle(
   fontSize: 16.0,
   color: Colors.black,
 );
+const TextStyle kHeader5Bold = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+);

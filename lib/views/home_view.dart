@@ -1,5 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:explore_web/commons/constants.dart';
+import 'package:explore_web/views/bottom/bottom_info_mobile_widget.dart';
+import 'package:explore_web/views/bottom/bottom_info_web_widget.dart';
+import 'package:explore_web/views/carousel/carousel_web_widget.dart';
+import 'package:explore_web/views/header/app_bar_mobile_widget.dart';
+import 'package:explore_web/views/header/app_bar_web_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -8,33 +12,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<bool> _hoverAppBarList = [false, false, false, false];
-
-  List<bool> _selectedPlacesList = [true, false, false, false, false, false, false];
-
-  List<String> _imagesList = [
-    'images/asia.jpg',
-    'images/africa.jpg',
-    'images/europe.jpg',
-    'images/south_america.jpg',
-    'images/australia.jpg',
-    'images/antarctica.jpg',
-  ];
-
-  List<String> _placesNameList = [
-    'ASIA',
-    'AFRICA',
-    'EUROPE',
-    'SOUTH AMERICA',
-    'AUSTRALIA',
-    'ANTARCTICA',
-  ];
-
-  int _currentSelected = 0;
   double _scrollPosition = 0.0;
   double _opacity = 0.0;
 
-  CarouselController _carouselController;
   ScrollController _scrollController;
 
   _scrollListener() {
@@ -46,8 +26,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-
-    _carouselController = CarouselController();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
   }
@@ -63,124 +41,9 @@ class _HomeViewState extends State<HomeView> {
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 1000.0),
-        child: Container(
-          color: Colors.blueGrey[800].withOpacity(_opacity),
-          child: Padding(
-            padding: EdgeInsets.all(screenSize.width * 0.02),
-            child: Row(
-              children: [
-                Text(
-                  'Explore'.toUpperCase(),
-                  style: kAppBarTitle.copyWith(color: Colors.grey[300]),
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Discover',
-                              style: kAppBarButton.copyWith(
-                                color: _hoverAppBarList[0]
-                                    ? Colors.blue[100]
-                                    : Colors.grey[200],
-                              ),
-                            ),
-                            SizedBox(height: 4.0),
-                            Visibility(
-                              visible: _hoverAppBarList[0],
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              child: Container(
-                                height: 2.0,
-                                width: 40.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {},
-                        onHover: (isHovering) {
-                          setState(() {
-                            _hoverAppBarList[0] = isHovering;
-                          });
-                        },
-                      ),
-                      SizedBox(width: screenSize.width * 0.03),
-                      InkWell(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Contact Us',
-                              style: kAppBarButton.copyWith(
-                                color: _hoverAppBarList[1]
-                                    ? Colors.blue[100]
-                                    : Colors.grey[200],
-                              ),
-                            ),
-                            SizedBox(height: 4.0),
-                            Visibility(
-                              visible: _hoverAppBarList[1],
-                              maintainAnimation: true,
-                              maintainState: true,
-                              maintainSize: true,
-                              child: Container(
-                                height: 2.0,
-                                width: 40.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {},
-                        onHover: (isHovering) {
-                          setState(() {
-                            _hoverAppBarList[1] = isHovering;
-                          });
-                        },
-                      ),
-                      SizedBox(width: screenSize.width * 0.1),
-                    ],
-                  ),
-                ),
-                InkWell(
-                  child: Text(
-                    'Sign Up',
-                    style: kAppBarButton.copyWith(
-                      color: _hoverAppBarList[2] ? Colors.white : Colors.grey[300],
-                    ),
-                  ),
-                  onTap: () {},
-                  onHover: (isHovering) {
-                    setState(() {
-                      _hoverAppBarList[2] = isHovering;
-                    });
-                  },
-                ),
-                SizedBox(width: screenSize.width * 0.02),
-                InkWell(
-                  child: Text(
-                    'Login',
-                    style: kAppBarButton.copyWith(
-                      color: _hoverAppBarList[3] ? Colors.white : Colors.grey[300],
-                    ),
-                  ),
-                  onTap: () {},
-                  onHover: (isHovering) {
-                    setState(() {
-                      _hoverAppBarList[3] = isHovering;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+        child: screenSize.width > 800
+            ? AppBarWebWidget(screenSize: screenSize, opacity: _opacity)
+            : AppBarMobileWidget(screenSize: screenSize, opacity: _opacity),
       ),
       backgroundColor: Colors.white,
       body: _buildBody(context, screenSize),
@@ -270,34 +133,31 @@ class _HomeViewState extends State<HomeView> {
                               padding: EdgeInsets.all(screenSize.width * 0.02),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: Colors.blueGrey,
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(width: 20.0),
-                                  Text(
-                                    'Destination',
-                                    style: kFloatingBarButton,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Card(
-                            elevation: 5.0,
-                            color: Colors.white,
-                            child: Padding(
-                              padding: EdgeInsets.all(screenSize.width * 0.02),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.blueGrey,
-                                  ),
-                                  SizedBox(width: 20.0),
-                                  Text(
-                                    'Dates',
-                                    style: kFloatingBarButton,
+                                  SizedBox(width: 16.0),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Dates',
+                                          style: kFloatingBarButton,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -310,14 +170,31 @@ class _HomeViewState extends State<HomeView> {
                               padding: EdgeInsets.all(screenSize.width * 0.02),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.people,
-                                    color: Colors.blueGrey,
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Icon(
+                                          Icons.people,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(width: 20.0),
-                                  Text(
-                                    'People',
-                                    style: kFloatingBarButton,
+                                  SizedBox(width: 16.0),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'People',
+                                          style: kFloatingBarButton,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -330,14 +207,68 @@ class _HomeViewState extends State<HomeView> {
                               padding: EdgeInsets.all(screenSize.width * 0.02),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.wb_sunny,
-                                    color: Colors.blueGrey,
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Icon(
+                                          Icons.wb_sunny,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(width: 20.0),
-                                  Text(
-                                    'Experience',
-                                    style: kFloatingBarButton,
+                                  SizedBox(width: 16.0),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Experience',
+                                          style: kFloatingBarButton,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Card(
+                            elevation: 5.0,
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Icon(
+                                          Icons.location_pin,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 16.0),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Destination',
+                                          style: kFloatingBarButton,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -350,14 +281,16 @@ class _HomeViewState extends State<HomeView> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: screenSize.width * 0.03, vertical: screenSize.width * 0.03),
+                horizontal: screenSize.width * 0.03,
+                vertical: screenSize.width * 0.03),
             child: SizedBox(
               width: screenSize.width,
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 children: [
                   Text('Featured', style: kHeader1Bold),
-                  Text('Unique wildlife tours and destinations', style: kHeader5),
+                  Text('Unique wildlife tours and destinations',
+                      style: kHeader5),
                 ],
               ),
             ),
@@ -410,8 +343,8 @@ class _HomeViewState extends State<HomeView> {
                             height: screenSize.width * 0.17,
                             width: screenSize.width * 0.3,
                             child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(screenSize.width * 0.01),
+                              borderRadius: BorderRadius.circular(
+                                  screenSize.width * 0.01),
                               child: Image.asset(
                                 'images/photography.jpeg',
                                 fit: BoxFit.cover,
@@ -478,8 +411,8 @@ class _HomeViewState extends State<HomeView> {
                               height: screenSize.width * 0.3,
                               width: screenSize.width * 0.55,
                               child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(screenSize.width * 0.01),
+                                borderRadius: BorderRadius.circular(
+                                    screenSize.width * 0.01),
                                 child: Image.asset(
                                   'images/photography.jpeg',
                                   fit: BoxFit.cover,
@@ -493,132 +426,20 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                ),
+          ),
           SizedBox(height: 70.0),
           Text(
             'Destination Diversity',
             style: kHeader2Bold,
           ),
-          SizedBox(height: 10.0),
-          _buildCarousel(context, screenSize),
-          SizedBox(height: 100.0),
+          SizedBox(height: 8.0),
+          CarouselWebWidget(screenSize: screenSize),
+          SizedBox(height: 16.0),
+          screenSize.width > 800
+              ? BottomInfoWebWidget()
+              : BottomInfoMobileWidget(),
         ],
       ),
-    );
-  }
-
-  Widget _buildCarousel(BuildContext context, Size screenSize) {
-    return Stack(
-      children: [
-        CarouselSlider(
-          carouselController: _carouselController,
-          items: List.generate(
-              _imagesList.length,
-              (index) => Padding(
-                    padding: EdgeInsets.all(screenSize.width * 0.01),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(screenSize.width * 0.01),
-                          child: Image.asset(
-                            _imagesList[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: screenSize.width * 0.07),
-                            child: Text(
-                              _placesNameList[index],
-                              style: kPlacesTitle.copyWith(
-                                  fontSize: screenSize.width * 0.07),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-          options: CarouselOptions(
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentSelected = index;
-              });
-
-              for (int i = 0; i < _imagesList.length; i++) {
-                if (i == index) {
-                  _selectedPlacesList[i] = true;
-                } else {
-                  _selectedPlacesList[i] = false;
-                }
-              }
-            },
-            initialPage: 0,
-            disableCenter: true,
-            autoPlay: true,
-            pauseAutoPlayOnTouch: true,
-            enlargeCenterPage: true,
-            autoPlayAnimationDuration: Duration(seconds: 2),
-            enlargeStrategy: CenterPageEnlargeStrategy.scale,
-          ),
-        ),
-        screenSize.width > 800
-            ? Positioned(
-                bottom: screenSize.width * 0.095,
-                left: screenSize.width * 0.2,
-                right: screenSize.width * 0.2,
-                child: Card(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: screenSize.width * 0.01,
-                      right: screenSize.width * 0.01,
-                      bottom: screenSize.width * 0.01,
-                      top: screenSize.width * 0.018,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(
-                        _imagesList.length,
-                        (index) => InkWell(
-                          onTap: () {
-                            setState(() {
-                              _carouselController.animateToPage(
-                                index,
-                                duration: Duration(seconds: 2),
-                                curve: Curves.ease,
-                              );
-                            });
-                          },
-                          child: Column(
-                            children: [
-                              Text(
-                                _placesNameList[index],
-                                style: kHeader5.copyWith(
-                                  color: Colors.blueGrey,
-                                  fontSize: screenSize.width * 0.01,
-                                ),
-                              ),
-                              SizedBox(height: 5.0),
-                              Visibility(
-                                maintainAnimation: true,
-                                maintainState: true,
-                                maintainSize: true,
-                                visible: _selectedPlacesList[index],
-                                child: Container(
-                                  color: Colors.blueGrey,
-                                  height: 1.0,
-                                  width: screenSize.width * 0.03,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            : Container(),
-      ],
     );
   }
 }

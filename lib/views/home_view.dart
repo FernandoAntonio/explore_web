@@ -224,7 +224,7 @@ class _HomeViewState extends State<HomeView> {
                                     flex: 4,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Experience',
